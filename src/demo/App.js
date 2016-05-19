@@ -16,7 +16,8 @@ export default class App extends Component {
     volume: 0.8,
     played: 0,
     loaded: 0,
-    duration: 0
+    duration: 0,
+    poster: null
   };
   load = (url) => {
     this.setState({
@@ -71,6 +72,7 @@ export default class App extends Component {
     const {
       url, playing, volume,
       played, loaded, duration,
+      poster,
       soundcloudConfig,
       vimeoConfig,
       youtubeConfig
@@ -84,6 +86,7 @@ export default class App extends Component {
           <ReactPlayer
             ref='player'
             className='react-player'
+            poster={ poster }
             width={480}
             height={270}
             url={url}
@@ -166,6 +169,13 @@ export default class App extends Component {
                 {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4', 'MP4')}
                 {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv', 'OGV')}
                 {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.webm', 'WEBM')}
+              </td>
+            </tr>
+            <tr>
+              <th>Custom poster</th>
+              <td>
+                <input ref='posterUrl' type='text' placeholder='Enter URL' />
+                <button onClick={() => this.setState({ poster: this.refs.posterUrl.value })}>Load</button>
               </td>
             </tr>
             <tr>

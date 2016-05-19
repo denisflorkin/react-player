@@ -53,15 +53,29 @@ export default class FilePlayer extends Base {
   }
   render () {
     const Media = AUDIO_EXTENSIONS.test(this.props.url) ? 'audio' : 'video'
-    const style = { display: this.props.url ? 'block' : 'none' }
+    const style = {
+      display: this.props.url ? 'block' : 'none',
+      width: '100%',
+      height: '100%'
+    }
+
+    const posterStyle = this.props.poster ? {
+      backgroundImage: `url(${this.props.poster})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      backgroundPosition: 'center'
+    } : {}
+
+    const poster = { ...style, ...posterStyle }
+
     return (
-      <Media
-        ref='player'
-        style={style}
-        width='100%'
-        height='100%'
-        preload='auto'
-      />
+      <div style={ poster }>
+        <Media
+          ref='player'
+          style={style}
+          preload='auto'
+        />
+      </div>
     )
   }
 }
